@@ -1,7 +1,9 @@
 library(shiny)
 
-source("../../analysis/R/read_input.R")
-source("../../analysis/R/decode.R")
+setwd("../../")
+source("analysis/R/read_input.R")
+source("analysis/R/decode.R")
+setwd("apps/rappor-analysis")
 
 # Random number associated with the session used in exported file names.
 seed <- sample(10^6, 1)
@@ -192,6 +194,7 @@ shinyServer(function(input, output, session) {
                                 include.rownames = FALSE)
 
   output$example_counts <- renderTable({
+    params <- Params()
     counts <- ReadCountsFile("counts.csv")[, 1:15]
     cbind(counts, rep("...", nrow(counts)))
   },
